@@ -1,0 +1,85 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id            Int      @id @default(autoincrement())
+    telegramId    BigInt   @unique
+    firstName     String?
+    username      String?
+    languageCode  String?
+    isBlocked     Boolean  @default(false)
+    isAdmin       Boolean  @default(false)
+    createdAt     DateTime @default(now())
+    lastActiveAt  DateTime @default(now())
+
+    subscriptions Subscription[]
+    favorites     Favorite[]
+
+    @@index([createdAt])
+    @@index([lastActiveAt])
+}
+
+model Subscription {
+    id        Int        @id @default(autoincrement())
+    userId    Int
+    topic     String
+    createdAt DateTime @default(now())
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, topic])
+    @@index([topic])
+}
+
+model ApodCache {
+    date          String    @id
+    titleEn       String
+    explanationEn String
+    titleUz       String?
+    explanationUz String?
+    mediaType     String
+    url           String
+    hdUrl         String?
+    copyRight     String?
+    raw           Json?
+    createdAt     DateTime  @default(now())
+}
+
+model TranslationCache {
+    id         Int      @id @default(autoincrement())
+    hash       String   @unique
+    sourceText String
+    targetLang String   @default("uz")
+    result     String
+    provider   String?
+    createdAt  DateTime @default(now())
+}
+
+model NotifiedEvent {
+    id         Int      @id @default(autoincrement())
+    type       String
+    externalId String
+    notifiedAt DateTime @default(now())
+
+    @@unique([externalId, type])
+}
+
+model Favorite {
+    id         Int     @id @default(autoincrement())
+    userId     Int
+    source     String
+    externalId String
+    title      String?
+    thumbUrl   String?
+    createdAt  DateTime @default(now())
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, externalId, source])
+}
