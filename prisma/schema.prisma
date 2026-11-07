@@ -38,17 +38,17 @@ model Subscription {
 }
 
 model ApodCache {
-    date          String    @id
-    titleEn       String
-    explanationEn String
-    titleUz       String?
-    explanationUz String?
-    mediaType     String
-    url           String
-    hdUrl         String?
-    copyRight     String?
-    raw           Json?
-    createdAt     DateTime  @default(now())
+  date          String   @id 
+  titleEn       String
+  explanationEn String
+  titleUz       String?
+  explanationUz String?
+  mediaType     String 
+  url           String
+  hdUrl         String?
+  copyright     String?
+  raw           Json?
+  createdAt     DateTime @default(now())
 }
 
 model TranslationCache {
