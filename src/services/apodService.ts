@@ -3,7 +3,6 @@ import { prisma } from "../db/prisma";
 import { fetchApodFromNasa, type NasaApod } from "./nasaService";
 import { translateText } from "./translationService";
 
-// APOD sanasi AQSh (Sharqiy vaqt) bo'yicha ketadi
 export function todayInEastern(): string {
     return new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" });
 }
