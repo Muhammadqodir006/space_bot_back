@@ -49,7 +49,7 @@ function moonRiseSet(now: Date): { rise: Date | null; set: Date | null } {
     let set: Date | null = null;
 
     for (const shift of [-1, 0, 1]) {
-        const times = SunCalc.getMoonTimes(new Date(start + shift * DAY + 12 * 3600 * 1000), LAT, LNG, true);
+        const times = SunCalc.getMoonTimes(new Date(start + shift * DAY + 12 * 3600 * 1000), LAT, LNG);
         for (const [key, value] of [["rise", times.rise], ["set", times.set]] as const) {
             if (!value) continue;
             const ms = value.getTime();

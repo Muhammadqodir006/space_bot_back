@@ -5,6 +5,8 @@ import { setBlocked, touchUser, upsertTelegramUser } from "../services/userServi
 import { getUserTopics, subscribe, toggleTopic } from "../services/subscriptionService";
 import { getApod } from "../services/apodService";
 import { searchByUzbekQuery, searchImages } from "../services/imageLibraryService";
+import { moonReport } from "../services/moonService";
+import { meteorReport } from "../services/metearService";
 
 async function settingsKeyboard(userId: number) {
     const active = new Set(await getUserTopics(userId));
@@ -262,13 +264,19 @@ export function createBot() {
         await runSearch(ctx, q);
     });
 
+    bot.command("oy", (ctx) => ctx.reply(moonReport()));
+
+    bot.command("meteor", (ctx) => ctx.reply(meteorReport()));
+
     bot.command("help", (ctx) =>
         ctx.reply(
             "/start - boshlash\n" +
                 "/apod - bugungi kosmik rasm\n" +
                 "/apod 2024-05-12 - o'sha kundagi rasm\n" +
                 "/settings - obuna mavzularini tanlash\n" +
-                "/search qora tuynuk - kosmik arxivdan qidirish",
+                "/search qora tuynuk - kosmik arxivdan qidirish\n" +
+                "/oy - Oyfazasi va chiqish/botish vaqti\n" +
+                "/meteor - meteor yomgirlari taqvimi\n"  
         ),
     );
 
