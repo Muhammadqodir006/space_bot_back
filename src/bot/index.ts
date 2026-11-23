@@ -6,7 +6,7 @@ import { getUserTopics, subscribe, toggleTopic } from "../services/subscriptionS
 import { getApod } from "../services/apodService";
 import { searchByUzbekQuery, searchImages } from "../services/imageLibraryService";
 import { moonReport } from "../services/moonService";
-import { meteorReport } from "../services/metearService";
+import { meteorReport } from "../services/meteorService";
 
 async function settingsKeyboard(userId: number) {
     const active = new Set(await getUserTopics(userId));
