@@ -4,6 +4,7 @@ export const TOPICS = [
   { key: "space_weather", label: "☄️ Kosmik ob-havo" },
   { key: "meteor", label: "🌠 Meteor yomg'irlari" },
   { key: "planets", label: "🪐 Yangi sayyoralar" },
+  { key: "moon", label: "🌙 Oy fazasi (haftalik)"},
 ] as const;
 
 export type TopicKey = (typeof TOPICS)[number]["key"];
